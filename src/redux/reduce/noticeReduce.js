@@ -1,4 +1,4 @@
-
+import { hideNotice } from "../action/cartAction";
 const initState = [
     {
         id: 1,
@@ -16,7 +16,11 @@ const initState = [
 
 const noticeReduce = (state = initState, action) => {
     console.log('action', action)
-    switch(action.type) {   
+    switch(action.type) {  
+        case hideNotice().type:
+            return state.filter(item => {
+                return item.id !== action.id
+            })
         default:
             return state;
     }

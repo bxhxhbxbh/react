@@ -1,20 +1,41 @@
 import React, { Component } from "react";
+import { connect } from "react-redux"
 
-export default class NoticeList extends Component {
+import { hideNotice } from "../redux/action/cartAction";
+
+// react-redux 第一种用法
+const mapStateToProps = (state) => {
+    return {
+        noticeList: state.noticeReduce
+    }
+}
+
+@connect(mapStateToProps, {hideNotice})
+class NoticeList extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            noticeList: this.props.store.getState().noticeReduce
-        }
+        this.state = {}
     }
+    // redux 第一种用法
+    // componentWillMount() {
+    //     this.unsubscribe = this.props.store.subscribe(() => {
+    //         this.setState({
+    //             noticeList: this.props.store.getState().noticeReduce
+    //         })
+    //     })
+    // }
+    // componentWillUnmount() {
+    //     this.unsubscribe()
+    // }
     render() {
         return (
             <div className="App">
                 <ul>
                     {
-                        this.state.noticeList.map((item, index) => {
+                        this.props.noticeList.map((item, index) => {
                             return (
                                 <li key={index}>
+                                    <p><button onClick={this.props.hideNotice.bind(this, item.id)}>&times;</button></p>
                                     <p>序号：{item.id}</p>
                                     <p>标题：<a href={item.url}>{item.title}</a></p>
                                     <p>图片：<br/><img src={item.imgUrl} alt=""/></p>
@@ -28,3 +49,19 @@ export default class NoticeList extends Component {
         );
     }
 }
+// react-redux 第二种用法
+// const mapStateToProps = (state) => {
+//     return {
+//         noticeList: state.noticeReduce
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         hideNoticeFn: (id) => {
+//             dispatch(hideNotice(id))
+//         }
+//     }
+// }
+
+export default NoticeList

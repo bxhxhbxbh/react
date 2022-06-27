@@ -38,8 +38,8 @@ class App extends Component {
 					</Routes>
 				</Router>
 				{/* <Redirect from="/" to="/home"></Redirect> */}
-				<CartList store={this.props.store}/>
-				<NoticeList store={this.props.store}/>
+				<CartList />
+				<NoticeList />
 			</div>
 		);	
 	}

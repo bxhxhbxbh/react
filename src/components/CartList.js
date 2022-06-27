@@ -1,24 +1,29 @@
 import React, { Component } from "react";
-import {add, sub} from "../redux/action/cartAction"
+import {add, sub, asyncAdd} from "../redux/action/cartAction"
 
-export default class CartList extends Component {
+import { connect } from "react-redux"
+const mapStateToProps = (state) => {
+    return {
+        cartList: state.cartReduce
+    }
+}
+@connect(mapStateToProps, {add, sub, asyncAdd})
+class CartList extends Component {
     constructor(props){
         super(props)
-        this.state = {
-            cartList: this.props.store.getState().cartReduce
-        }
+        this.state = {}
     }
-    componentWillMount() {
-        this.unsubscibe = this.props.store.subscribe(() => {
-            this.setState({
-                cartList: this.props.store.getState().cartReduce
-            })
-        })
-    }
+    // componentWillMount() {
+    //     this.unsubscibe = this.props.store.subscribe(() => {
+    //         this.setState({
+    //             cartList: this.props.cartList
+    //         })
+    //     })
+    // }
 
-    componentWillUnmount() {
-        this.unsubscibe()
-    }
+    // componentWillUnmount() {
+    //     this.unsubscibe()
+    // }
     render() {
         return (
             <div>
@@ -35,20 +40,19 @@ export default class CartList extends Component {
                     </thead>
                     <tbody>
                         {
-                            this.state.cartList.map((item, index) => {
+                            this.props.cartList.map((item, index) => {
                                 return (
                                     <tr key={index}>
                                         <td>{item.id}</td>
                                         <td>{item.name}</td>
                                         <td>{item.price}</td>
                                         <td>
-                                            <button onClick={() => {
-                                                this.props.store.dispatch(sub(item.id))
-                                            }}>-</button>
+                                            <button onClick={ this.props.sub.bind(this, item.id) }>-</button>
                                             {item.amount}
-                                            <button onClick={() => {
-                                                this.props.store.dispatch(add(item.id))
-                                            }}>+</button>
+                                            <button onClick={ this.props.add.bind(this, item.id) }>+</button>
+                                        </td>
+                                        <td>
+                                            <button onClick={ this.props.asyncAdd.bind(this, item.id) }>异步增加</button>
                                         </td>
                                         <td><button>移除</button></td>
                                     </tr>
@@ -61,3 +65,22 @@ export default class CartList extends Component {
         )
     }
 }
+
+// const mapStateToProps = (state) => {
+//     return {
+//         cartList: state.cartReduce
+//     }
+// }
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         addFn: (id) => {
+//             dispatch(add(id))
+//         },
+//         subFn: (id) => {
+//             dispatch(sub(id))
+//         }
+//     }
+// }
+
+export default CartList
