@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import store from "./redux"
+console.log(store)
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App store={store}/>
   </React.StrictMode>
 );
 
