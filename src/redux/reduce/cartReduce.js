@@ -24,15 +24,13 @@ const cartReduce = (state = initState, action) => {
                 }
                 return item
             })
-            break;
         case add().type:
             return state.map(item => {
                 if(item.id === action.id) {
                     item.amount += 1;
                 }
                 return item
-            })
-            break;    
+            })  
         default:
             return state;
     }

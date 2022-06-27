@@ -16,7 +16,7 @@ export default class NoticeList extends Component {
                             return (
                                 <li key={index}>
                                     <p>序号：{item.id}</p>
-                                    <p>标题：<a href={item.url} target="_blank">{item.title}</a></p>
+                                    <p>标题：<a href={item.url}>{item.title}</a></p>
                                     <p>图片：<br/><img src={item.imgUrl} alt=""/></p>
                                 </li>
                                 

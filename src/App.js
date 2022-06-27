@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import {
 	HashRouter as Router,	
-	HashRouter as Redirect,
-	HashRouter as Withrouter,
+	// HashRouter as Redirect,
+	// HashRouter as Withrouter,
 	Routes,
 	Route,
 	Link,
@@ -10,7 +10,7 @@ import {
 
 import "./App.css";
 
-import ReactHeader from "./views/Header";
+// import ReactHeader from "./views/Header";
 import Home from "./views/Home";
 import News from "./views/News";
 import Members from "./views/Members";
